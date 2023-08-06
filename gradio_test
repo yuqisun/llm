@@ -1,0 +1,60 @@
+import gradio as gr
+import os
+import openai
+
+from dotenv import load_dotenv, find_dotenv
+_ = load_dotenv(find_dotenv())
+
+openai.api_key  = os.getenv('OPENAI_API_KEY')
+
+def predict(message, history):
+    history_openai_format = []
+    for human, assistant in history:
+        history_openai_format.append({"role": "user", "content": human})
+        history_openai_format.append({"role": "assistant", "content": assistant})
+    history_openai_format.append({"role": "user", "content": message})
+
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=history_openai_format,
+        temperature=1.0,
+        stream=True
+    )
+
+    partial_message = ""
+    for chunk in response:
+        if len(chunk['choices'][0]['delta']) != 0:
+            partial_message = partial_message + chunk['choices'][0]['delta']['content']
+            yield partial_message
+
+gradio_app_title = "# Moogle: A New Way to Search!"
+init_message = f"""## Outline:
+    1. Tech News
+    2. SBL business
+    3. townhall
+"""
+
+def respond(message, chat_history, instruction, temperature=0.7):
+    yield "", chat_history
+
+video_path = 'video_cn_sample.mp4'
+video_tag = f'<video controls src="{video_path}" id="video_player"></video>'
+
+with gr.Blocks() as demo:
+    gr.Markdown(gradio_app_title)
+    with gr.Row():
+        # with gr.Column(scale=1):
+        #     gr.HTML(value="<p style='margin-top: 1rem, margin-bottom: 1rem'>Gradio Docs Readers: <img src='https://visitor-badge.glitch.me/badge?page_id=gradio-docs-visitor-badge' alt='visitor badge' style='display: inline-block'/></p>")
+        #     gr.HTML(value="<p style='margin-top: 1rem, margin-bottom: 1rem'>Gradio Docs Readers: <img src='https://visitor-badge.glitch.me/badge?page_id=gradio-docs-visitor-badge' alt='visitor badge' style='display: inline-block'/></p>")
+        with gr.Column(scale=6):
+            gr.ChatInterface(predict)
+        with gr.Column(scale=2):
+            with gr.Row():
+                gr.Markdown(init_message)
+            with gr.Row():
+                gr.TextArea(label='Reference', value='text area')
+            with gr.Row():
+                gr.HTML(video_tag)
+
+gr.close_all()
+demo.queue().launch(share=True, server_port=27860)
