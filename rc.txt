@@ -1,0 +1,3 @@
+https://blog.csdn.net/weixin_39528941/article/details/129261999
+https://mp.weixin.qq.com/s?__biz=MzI4MDYzNzg4Mw==&mid=2247547989&idx=1&sn=b6e7ab2ab800efad01b29cc9641b6aca&chksm=ebb70481dcc08d97da7a54a71fcdf873fdf91e307941d9f85d1d1d0b404445e27395c0e72b39&scene=27
+https://www.datacamp.com/tutorial/recommender-systems-python
