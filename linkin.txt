@@ -1,11 +1,38 @@
 https://www.linkedin.com/pulse/coding-good-citi-tech-fest-2023-jim-adams-oh9ze%3FtrackingId=owigxw6lTkGEGNgGJiPRiQ%253D%253D/?trackingId=owigxw6lTkGEGNgGJiPRiQ%3D%3D
 
+安全性：当软件或硬件的厂商支持终止时，相关的安全更新和补丁可能不再提供。这意味着系统可能面临未修复的安全漏洞，从而增加被黑客攻击或数据泄露的风险。
+兼容性：随着技术的进步，新的操作系统、数据库或其他软件可能与旧版本的软件不兼容。如果厂商不再提供支持，那么解决这些兼容性问题可能会变得困难。
+技术支持：当遇到技术问题时，通常需要依赖厂商的技术支持。如果支持终止，那么遇到问题时可能难以找到解决方案，或需要花费更多的时间和资源自行解决。
+业务连续性：对于依赖特定软件或硬件进行业务操作的组织来说，如果这些软件或硬件的厂商支持终止，可能会影响到业务的连续性和稳定性。
+成本考虑：虽然短期内可能不需要为不再受支持的软件或硬件支付费用，但长期来看，可能需要投入更多的资源来解决与之相关的问题，如寻找替代方案、进行定制开发或进行额外的安全审计等。
+
 Security: When vendor support for software or hardware ends, related security updates and patches may no longer be available. This means systems may be exposed to unpatched security vulnerabilities, increasing the risk of hacks or data breaches.
 Compatibility: As technology evolves, new operating systems, databases, or other software may become incompatible with older versions. Without vendor support, addressing these compatibility issues can become challenging.
 Technical Support: When technical issues arise, it's often necessary to rely on vendor technical support. When support ends, finding solutions to problems can become difficult, and may require more time and resources to resolve independently.
 Business Continuity: For organizations that rely on specific software or hardware for business operations, the end of vendor support can impact business continuity and stability.
 Cost Considerations: While there may be no immediate cost for unsupported software or hardware in the short term, in the long run, it may require more resources to address related issues, such as finding alternative solutions, undertaking custom development, or conducting additional security audits.
 
+
+
+企业方面的好处：
+
+增强业务安全性：企业可以确保系统的安全性和稳定性，避免因不受支持的软件或硬件而引发的潜在安全漏洞。这有助于保护企业的核心数据和客户信息，避免因数据泄露或系统崩溃而造成的经济损失和声誉损害。
+
+保持竞争力：及时修复“end of vendor support”的问题可以帮助企业保持技术上的竞争力。企业能够采用最新的技术和解决方案，提高系统的性能和效率，从而提供更好的产品和服务，满足客户的需求，并在市场中保持领先地位。
+
+减少风险：避免长期依赖过时的软件或硬件，可以减少企业的技术风险。当厂商停止支持时，企业可能会面临系统崩溃、数据丢失等风险。及时修复问题可以避免这些风险的发生，确保企业的正常运营。
+
+控制成本：及时修复“end of vendor support”的问题可以帮助企业控制成本。避免因为长期支持过时的软件或硬件而产生的额外费用，如技术支持费用、定制化开发的成本等。通过及时修复问题，企业可以优化资源利用，提高投资回报率。
+
+团队方面的好处：
+
+提高工作效率：团队可以专注于创新和业务发展，而不是花费大量时间和精力来维护过时的软件或硬件。这可以提高团队的工作效率，使他们能够更快速地响应市场变化和客户需求。
+
+减少技术债务：修复“end of vendor support”的问题可以减轻团队的技术债务负担。避免长期依赖旧的技术栈或解决方案，使团队能够摆脱过时的技术和工具，采用更先进、更高效的技术解决方案。
+
+增强技术能力和创新能力：通过及时修复不受支持的问题，团队可以不断提升自身的技术能力和创新能力。他们可以学习新的技术知识、掌握新的工具和方法，从而提高团队的整体技术水平，为企业的发展提供更有力的技术支持。
+
+提高团队士气：解决“end of vendor support”的问题可以增强团队的凝聚力和士气。团队成员可以共同努力，面对挑战，解决问题，从而提升团队的协作能力和自信心。这种积极的团队氛围有助于激发团队成员的创造力和潜力，推动企业的持续发展。
 
 Benefits for the Enterprise:
 
