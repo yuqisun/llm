@@ -1,1 +1,7 @@
 https://www.linkedin.com/pulse/coding-good-citi-tech-fest-2023-jim-adams-oh9ze%3FtrackingId=owigxw6lTkGEGNgGJiPRiQ%253D%253D/?trackingId=owigxw6lTkGEGNgGJiPRiQ%3D%3D
+
+Security: When vendor support for software or hardware ends, related security updates and patches may no longer be available. This means systems may be exposed to unpatched security vulnerabilities, increasing the risk of hacks or data breaches.
+Compatibility: As technology evolves, new operating systems, databases, or other software may become incompatible with older versions. Without vendor support, addressing these compatibility issues can become challenging.
+Technical Support: When technical issues arise, it's often necessary to rely on vendor technical support. When support ends, finding solutions to problems can become difficult, and may require more time and resources to resolve independently.
+Business Continuity: For organizations that rely on specific software or hardware for business operations, the end of vendor support can impact business continuity and stability.
+Cost Considerations: While there may be no immediate cost for unsupported software or hardware in the short term, in the long run, it may require more resources to address related issues, such as finding alternative solutions, undertaking custom development, or conducting additional security audits.
