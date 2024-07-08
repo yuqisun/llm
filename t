@@ -2,7 +2,7 @@ Moogle 2024 Jun script
 
 > 以时间为轴
 
-hi 大家好，我是yuqi来自大连site，今天想给大家展示一个针对视频的搜索工具，希望对大家有帮助。
+hi 大家好，我是yuqi来自大连site，是今天的host和speaker，首先自我介绍一下，我是一个developer，今年是我在花旗工作的第十一年，除了现在从事的股票借贷费率业务，我还做过操作风险和ETF的业务。技术方面，我对Java，机器学习，加密算法都比较感兴趣，我今天想给大家展示一个针对视频的搜索工具，希望对大家有帮助。
 
 很荣幸我能代表 moogle团队，实际上有很多人参与这个项目，他们在想法和硬件上都提供了很多支持，尤其是wendy和rob，谢谢。
 
@@ -14,7 +14,7 @@ Hi everyone, I'm Yuqi from Dalian site. Today, I'd like to show you a search too
 
 I'm honored to represent the Moogle team. Actually, many people have contributed to this project, provided a lot of support in ideas and hardware. Especially Wendy and Rob, thank you.
 
-I'll walk you through the features of Moogle, but before that, I'd like to share its story first. Because if I were asked to recreate the same tool without using LLM now, I would definitely say it's impossible. But the truth is, that's how we've come this far.
+I'll walk you through the features of Moogle, but before that, I'd like to share its story first. Because if I were asked to recreate the same tool without using LLM now, I would definitely say it's impossible. But the truth is, we built it, we are here now.
 
 > 背景 - 点出所有人都会遇到这个问题
 
@@ -24,7 +24,7 @@ I'll walk you through the features of Moogle, but before that, I'd like to share
 
 ---
 
-This idea was born quite early, back in 2022, before ChatGPT. Dalian site organized multiple online sharing sessions on business and technology, from which my colleagues benefited greatly. However, there was some business knowledge that I couldn't understand at that time, such as TLC - trade life cycle, because it was not within my work scope. When I did encounter it in my work, I found the video by Rob. Of course, I could watch it frame by frame, second by second, but the video is very long, two hours. I could also skip through it, but there was a risk of missing key parts. There was also the possibility that even after watching the full two hours, I would find that the video didn't mention anything I was interested in.
+This idea was born quite early, back in 2022, before ChatGPT. Dalian site organized multiple online sharing sessions on business and technology, from which colleagues benefited greatly. However, there was some business knowledge that I couldn't understand at that time, such as TLC - trade life cycle, because it was not within my work scope. When I did encounter it in my work, I found the video by Rob. Of course, I could watch it frame by frame, second by second, but the video is very long, two hours. I could also skip through it, but there was a risk of missing key parts. There was also the possibility that even after watching the full two hours, I would find that the video didn't mention anything I was interested in.
 
 I believe I'm not the only one facing this challenge, not the only employees in Dalian. It's a common issue that many people encounter.
 
@@ -42,7 +42,7 @@ guild成员一致认为这是一个很好的痛点，同时可能是全公司甚
 
 ---
 
-The guild members agreed that this was a great pain point, it might be a challenge faced by everyone in the company and even all those around the world who want to search for videos. We were all very excited and eager to try. During the bi-weekly meetings, the guild members brainstormed many times, and more and more people joined of interest, with employees from different departments of Dalian, Shanghai, and Japan.
+All members agreed that this was a great pain point, it might be a challenge faced by everyone in the company and even all those around the world who want to search for videos. We were all very excited and eager to try. During the bi-weekly meetings, the guild members brainstormed many times, and more and more people joined of interest, with employees from different departments of Dalian, Shanghai, and Japan.
 
 > 工程师精神 - 困境1 - ppt model page v1
 
@@ -50,7 +50,7 @@ The guild members agreed that this was a great pain point, it might be a challen
 
 ---
 
-We extracted text from the videos, and without a LLM, we used a QA model for the entire video script. For a script of about ten thousand words, it took over 5 minutes to infer on my 16-core CPU's VDI. But fortunately, it works; we proved that this is a viable solution. This is the most important part and also one of the most exciting part.
+We extracted text from the videos, and without a LLM, we used a QA model for the entire video script. For a ten thousand words script, it usually took over 5 minutes to infer on my 16-core CPU's VDI. But good news is, it works; we proved that this is a viable solution. This is the most important part and also one of the most exciting parts.
 
 > RAG先驱 - 稀缺性
 
@@ -68,9 +68,11 @@ To speed up the QA part, we segmented the script, which caused some issue in sem
 
 ---
 
-Different is, there was no LLM for us at that time, the QA model's answers were just one or two words, too simple to answer user's query. So, we summarized the context around the answer. For multiple answers, we started to use GPT-2. Although GPT-2 only 4 hundred million parameters, still took at least 3 minutes to generate. 
+Different is, there was no LLM for us at that time, the QA model's answers were just one or two words, too simple to answer user's query. So, we summarized the context around the answer. For multiple answers, we started to use GPT-2. Although it's 4 hundred million parameters model, still took at least 3 minutes to generate. 
 
-In the end, we created a fancy tool that can search videos, generate summaries, and produce answers. The only issue is that each question takes about 6-10 minutes, much like a very fashion car that all people think it's cool, but it's as slow as a snail. It's such fancy that we shouldn't call it a tool, but an art, with a note next to it: "A very useful tool, but please don't use it!"
+In the end, we created a fancy tool that can search videos, generate summaries, and produce answers. The only issue is that each question takes about 6-10 minutes, much like a very fashion car that all people think it's cool, but it's as slow as a snail. It's such fancy that we shouldn't call it a tool, but an art, and there must be a note next to it: "A very useful tool, but please don't use it!"
+
+Performance issue is in a different dimentsion, cannot fix it by adjust code. Fortunately, Rob helped build a Mac environment, which can complete this proces in 10 seconds. We've put an engine in our fancy car, we can drive it out of the musemu now.
 
 > 工程师精神 - 保持探索 - ppt model page v3 + embedding
 
@@ -78,7 +80,7 @@ In the end, we created a fancy tool that can search videos, generate summaries, 
 
 ---
 
-The following story is more familiar to everyone. About a year later, ChatGPT is here. Although we don't have access to the ChatGPT turbo, it gave us the idea of embeddings to enhance search. At the same time, there are many excellent open-source LLMs we can choose, like ChatGLM we're using. 
+The following story is more familiar to everyone. About a year later, ChatGPT is here. Although we don't have access to the ChatGPT turbo directly, it gave us the idea of embeddings to enhance search. At the same time, there are many excellent open-source LLMs we can choose, like ChatGLM we're using. 
 
 > 成果
 
@@ -99,7 +101,7 @@ The following story is more familiar to everyone. About a year later, ChatGPT is
 
 Now, let me demo it.
 
-It looks good, right? The PA Youth charity thinks so too. We implemented similar function in last year's Tech Fest Hackathon and won, Nikhil is the sponsor of that PA Youth project.
+It looks good? The PA Youth charity thinks so too because we implemented similar function in last year's Tech Fest Hackathon and won at the end, Nikhil is the sponsor of that project.
 
 Currently, Moogle has nearly 200 videos and is used by over 300 users from China, Japan, Singapore, India, and the United States.
 
