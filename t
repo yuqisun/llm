@@ -2,7 +2,13 @@ Moogle 2024 Jun script
 
 > 以时间为轴
 
-hi 大家好，我是yuqi来自大连site，是今天的host和speaker，首先自我介绍一下，我是一个developer，今年是我在花旗工作的第十一年，除了现在从事的股票借贷费率业务，我还做过操作风险和ETF的业务。技术方面，我对Java，机器学习，加密算法都比较感兴趣，我今天想给大家展示一个针对视频的搜索工具，希望对大家有帮助。
+hi 大家好，我是yuqi来自大连site，是今天的host和speaker。
+
+首先自我介绍一下，我是一个developer，今年是我在花旗工作的第十一年，除了现在从事的股票借贷费率业务，我还做过操作风险和ETF的业务。
+
+我对 Java，机器学习，加密算法都感兴趣，也在为citi的开源项目工作，也会为CGRA开源项目做一些辅助工作，同时很荣幸我是E3 program的一员。
+
+我今天想给大家展示一个针对视频的搜索工具，希望对大家有帮助。
 
 很荣幸我能代表 moogle团队，实际上有很多人参与这个项目，他们在想法和硬件上都提供了很多支持，尤其是wendy和rob，谢谢。
 
@@ -10,23 +16,31 @@ hi 大家好，我是yuqi来自大连site，是今天的host和speaker，首先�
 
 ---
 
-Hi everyone, I'm Yuqi from Dalian site. Today, I'd like to show you a search tool designed for videos, hoping it will be helpful to everyone.
+Hi everyone, welcome to today's equity finanace tech sharing, I'm Yuqi from Dalian site, today's host and speaker. 
 
-I'm honored to represent the Moogle team. Actually, many people have contributed to this project, provided a lot of support in ideas and hardware. Especially Wendy and Rob, thank you.
+Let me take a moment to introduce myself in case some of you may not know about me.
 
-I'll walk you through the features of Moogle, but before that, I'd like to share its story first. Because if I were asked to recreate the same tool without using LLM now, I would definitely say it's impossible. But the truth is, we built it, we are here now.
+I'm a developer and this month, July 1st is my eleventh year at Citi. I'm currently working on the stock borrow loan business and apart from this,  I have also worked on operational risk and ETF business before.
+
+As a developer, I'm interested in Java, machine learning, and encryption algos. I also contribute to a Citi's open-source project and provide some assistant work for CGRA open-source project. And I'm also a member of the E3 program.
+
+Today, I'd like to share you a search tool designed for videos,  hope it will be helpful to everyone.
+
+I'm honored to present on behalf of our Moogle team. Actually, many people have contributed to this project, provided a lot of support in ideas and hardware. Especially Wendy and Rob, thank you.
+
+I'll walk you through the features of Moogle, but before that, I'd like to share journey of it first. Because if I were asked to recreate the same tool without using LLM now, I would definitely say it's impossible. But the truth good news is, we built it, we are here now.
 
 > 背景 - 点出所有人都会遇到这个问题
 
 这个想法诞生的很早，在2022年，还没有chatgpt的时候。大连site组织了多次业务和技术的线上分享，同事们受益良多，但是有些业务知识我当时并不能理解，比如TLC - trade life cycle，因为在我的工作范围中没有接触到，等我在工作中接触到的时候，我想去了解，我找到当时Rob讲的视频，当然我可以一秒一秒的看，但是视频实在太长了，有两个小时，也可以跳着看，但有可能跳过关键部分。还有可能我看完了两个小时，发现这个视频没有提到我感兴趣的东西。
 
-我相信遇到这种困境的不只是我自己，也不只是大连的员工，这是一个普遍存在的问题。
+我相信遇到这种困境的不只是我自己，也不只是Citi的员工，这是一个普遍存在的问题。
 
 ---
 
 This idea was born quite early, back in 2022, before ChatGPT. Dalian site organized multiple online sharing sessions on business and technology, from which colleagues benefited greatly. However, there was some business knowledge that I couldn't understand at that time, such as TLC - trade life cycle, because it was not within my work scope. When I did encounter it in my work, I found the video by Rob. Of course, I could watch it frame by frame, second by second, but the video is very long, two hours. I could also skip through it, but there was a risk of missing key parts. There was also the possibility that even after watching the full two hours, I would find that the video didn't mention anything I was interested in.
 
-I believe I'm not the only one facing this challenge, not the only employees in Dalian. It's a common issue that many people encounter.
+I believe I'm not the only one facing this challenge, not the only employees in Citi. It's a common issue that many people encounter.
 
 > 团队精神
 
@@ -34,7 +48,7 @@ I believe I'm not the only one facing this challenge, not the only employees in 
 
 ---
 
-So, I raised this issue in the survey regarding those sharing sessions. Fortunately, Wendy was at that time preparing the tech guild in Dalian. She took a detailed look at my question and discussed it with the members of the guild.
+So, I raised this issue in the survey regarding those sharing sessions. Fortunately, Wendy was at that time preparing the tech guild inside Citi for members to communicate. She took a detailed look at my question and discussed it with the members in the guild.
 
 > 组织能力
 
@@ -42,15 +56,27 @@ guild成员一致认为这是一个很好的痛点，同时可能是全公司甚
 
 ---
 
-All members agreed that this was a great pain point, it might be a challenge faced by everyone in the company and even all those around the world who want to search for videos. We were all very excited and eager to try. During the bi-weekly meetings, the guild members brainstormed many times, and more and more people joined of interest, with employees from different departments of Dalian, Shanghai, and Japan.
+All members agreed that this was a great pain point, it might be a challenge faced by everyone in the company and even all those around the world who want to search for videos. We were all very excited and cannot wait to try. 
+
+During the bi-weekly meetings, the guild members brainstormed many times, and more and more people joined of interest. Speaking of this, I have to say Citi really provides us a great global platform and outstanding culture of collaboration, we have members from many different departments and areas. From Dalian, from Shanghai Rates department and Documentum department of Japan.
 
 > 工程师精神 - 困境1 - ppt model page v1
 
-我们从视频中获取文本，在没有大模型的情况下，我们对整段视频脚本使用QA模型进行问答，对于一个一万字左右的脚本，在我16核cpu的vdi上需要超过5分钟的推导，每次测试都需要很长的时间，但是幸运的是，it works，我们证明了这是一条可行的方案。这是最重要的部分，也是最激动人心的部分。
+说到解决方案，我们首先从视频中提取文字，虽然现在的ASR模型已经很准确了，word error rate已经很低了，但依然会遇到一些问题，尤其是遇到一些专有名词或缩写时，还有我们很多分享是中英双语混合使用的。对此我们不得不做很多手动纠正的工作以确保文本的准确性。
+
+在没有大模型的情况下，我们对整段视频脚本使用QA模型进行问答，对于一个一万字左右的脚本，在我16核cpu的vdi上需要超过5分钟的推导，每次测试都需要很长的时间，但是幸运的是，it works，我们证明了这是一条可行的方案。这是最重要的部分，也是最激动人心的部分。
 
 ---
 
-We extracted text from the videos, and without a LLM, we used a QA model for the entire video script. For a ten thousand words script, it usually took over 5 minutes to infer on my 16-core CPU's VDI. But good news is, it works; we proved that this is a viable solution. This is the most important part and also one of the most exciting parts.
+For the solution, we firstly extracted text from the videos, even though the ASR model is already very accurate, with a very low word error rate, there're still issues. Especially for some specialized term or acronyms, and also some presentations are in a mix of Chinese and English, this will increase the difficulty of transcribing.
+
+> for example, xxx 增加例子
+
+For this, we have to do a lot of manual corrections to ensure the accuracy of the text.
+
+Next step, because there was no LLM at that time, we used a QA model to get the answer based on the video scripts. For a ten thousand words script, it usually took over 5 minutes to infer on my 16-core CPU's VDI. But good news is, it works; we proved that this is a viable solution. 
+
+This is the most important part and also one of the most exciting parts.
 
 > RAG先驱 - 稀缺性
 
@@ -58,7 +84,9 @@ We extracted text from the videos, and without a LLM, we used a QA model for the
 
 ---
 
-To speed up the QA part, we segmented the script, which caused some issue in semantic because some subjects appear in the previous paragraph, but in the next paragraph, they are replaced by word like 'it' or 'that'. This caused issue when inferring, so we added an overlap between paragraphs. And, entity reorganization model is also a choice for us at that time. Does this sound familiar? Yes, it's RAG. So when RAG came out, we understood its process immediately because we had walked the same way.
+To speed up the QA part, we segmented the script, which of course bring us some disadvantage in semantic because some subjects appear in the previous paragraph, but in the next paragraph, they are replaced by word like 'it' or 'that'. This caused issue when inferring, so we added an overlap between paragraphs. And, entity reorganization model is also a choice for us at that time. 
+
+You may find this familiar. Yes, it's just like RAG. So when RAG came out, we understood its process immediately because we had walked the same way.
 
 > 工程师精神 - 困境2 - ppt model page v2
 
@@ -72,7 +100,7 @@ Different is, there was no LLM for us at that time, the QA model's answers were 
 
 In the end, we created a fancy tool that can search videos, generate summaries, and produce answers. The only issue is that each question takes about 6-10 minutes, much like a very fashion car that all people think it's cool, but it's as slow as a snail. It's such fancy that we shouldn't call it a tool, but an art, and there must be a note next to it: "A very useful tool, but please don't use it!"
 
-Performance issue is in a different dimentsion, cannot fix it by adjust code. Fortunately, Rob helped build a Mac environment, which can complete this proces in 10 seconds. We've put an engine in our fancy car, we can drive it out of the musemu now.
+Performance issue is in a different dimentsion, cannot fix it by adjust code. Fortunately, Rob helped build a dedicated Mac environment, which can complete this proces in 10 seconds. We've put an engine in our fancy car, we can drive it out of the musemu now.
 
 > 工程师精神 - 保持探索 - ppt model page v3 + embedding
 
@@ -101,9 +129,13 @@ The following story is more familiar to everyone. About a year later, ChatGPT is
 
 Now, let me demo it.
 
-It looks good? The PA Youth charity thinks so too because we implemented similar function in last year's Tech Fest Hackathon and won at the end, Nikhil is the sponsor of that project.
+It looks good? We implemented similar feature in last year's Tech Fest Hackathon and won at the end in PA Youth Vote category, and luckly Nikhil is the sponsor of that project.
 
-Currently, Moogle has nearly 200 videos and is used by over 300 users from China, Japan, Singapore, India, and the United States.
+Currently, Moogle has nearly 200 videos, over 195 hours and is used by over 300 users from China, Japan, Singapore, India, and the United States.
 
-If you like Moogle, welcome to use it and welcome to join us. Thank you.
+## What's next?
+
+And as you know, Citi is now open to register usecase for GenAI, I have also registered for Moogle and working with MRM and AIOC to review, I found the steps is really complicated, if anyone is familiar with this process, really appreciate it if you can help with this.
+
+And if you like Moogle, welcome to use it and welcome to join us. Thank you.
 
