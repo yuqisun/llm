@@ -139,3 +139,177 @@ And as you know, Citi is now open to register usecase for GenAI, I have also reg
 
 And if you like Moogle, welcome to use it and welcome to join us. Thank you.
 
+
+#############################################
+
+rate prediction presentation
+
+Hi everyone, 我是yuqi，来自SBL Rate Team，上一次给大家分享了视频搜索工具Moogle，主要基于向量搜索和大语言模型，上一期结束之后有很多人提问了关于向量数据库的问题，我先用几分钟的时间回答一下。
+
+首先向量数据库与传统数据库的区别在于它存储的是向量而非常量，embedding模型是一种基于已有预料预训练的模型用于把文字转换成向量，而转成向量的最终目的是我们可以使用向量替代文本来计算相似度，这样我们才能知道我们的问题和已有的文本有多相似，这是一种对于关键字搜索的增强，可以理解为语义所搜。
+
+计算向量相似度有几种方式，比如点积，cosin，略有差异。
+
+我使用的向量数据库是 faiss，它容易上手，可以通过安装python包快速使用，但是不支持标量查询，我正在考虑使用chromadb，是一种支持标量查询的向量数据库。另外公司也提供 Milvus，功能更强大，但是要自己搭建。
+
+因为时间有限，如果大家还有其他问题可以回看之前的视频或者欢迎直接联系我。
+
+---
+
+回到今天的主题，也是和机器学习相关的项目，不过这次是和我们SBL的业务结合的，主要由一位曾经在citi工作过的资深desk user和我共同完成。我先介绍一下SBL的背景，我也希望通过今天的展示给大家提供一种思路，可以把机器学习应用在其他的业务领域中。
+
+**提问：**首先我想问下，有人做过short吗？nobody？是的，short 是一个高风险的操作。今天的业务和short有关。
+
+citi是一个股票中间商，它从其他人那里借来股票，然后借给另外一些人，当然这里有更多的细节，比如在金融危机之后不允许裸卖空，总之如果一个客户想卖空一只股票，那么它必须要先借到这支股票，citi就是其中一个可以提供股票借贷的地方。
+
+citi会通过收取手续费赚钱，就是这里的 lending fee。而价格由供求关系决定，无论是实体商品的价格还是股票借贷的价格。所以，不同的股票，想卖空它的人会有的多有的少，所以借贷的价格就会不同，当然肯定是想借的人越多价格就越高，反之就是价格越低。这也是为什么有时候SBL的desk user会把rate称为price。
+
+---
+
+正因为这样，因为不同的股票有不同的借贷费率，所以desk user需要根据每天的市场变化，改变借贷费率。因为如果价格过低，而股票实际热度很高，那citi实际相当于少赚了一些钱，而如果价格过高而股票实际没有那么高的热度，就是没有那么多人想借，就会导致没有人来citi借，也会导致citi收益减少。
+
+---
+
+**那每天desk user要修改多少次股票的费率呢？**
+
+citi将SBL费率大致分为三类，当然现在又增加了一类SR。AO，即account level，比如blackrock，无论client借哪支股票，我们之间都使用同一个费率，当然我们和client之间的费率也会调整。然后是CO，即security level，也是我们用于训练的数据集，最后是GC rate。根据历史数据，我们共有400个左右的AO费率，而desk user每天要修改30个左右。而对于CO，大概有6000个费率，desk user每天平均要修改250个，而对于一些特殊的时期，比如美联储首次加息的时候，desk user连续两天修改费率超过400个。
+
+那修改费率的desk user一共有几个人呢，你可以猜一下，10个，20个？实际只有5，6个人，查询数据库的记录，每个人平均5分钟就要修改一条记录，从早上到晚上不停的在修改。
+
+而即使是这样，依然不能确定他们覆盖了所有的股票，因为股票实在太多，而变化每天都在发生。
+
+---
+
+**那不能及时修改股票的费率会有什么影响呢？**
+
+从citi角度，比如看这样图，我查询了top 30的client的借贷amount value，平均的价值为480W美元，我们假设提高2%的费率，那每个股票，每天就是266美元，再想想我们有6000支股票，数量会很大。
+
+从client角度，如果citi在股票热度降低的时候能比其他中间商先降低费率，那对于client来说citi给出的费率就是有竞争力的，即使早半天，client也会觉得我们的信息渠道是更快的，更值得信任的。
+
+---
+
+**那我们怎么使用历史的数据来帮我我们呢？**
+
+在最开始的时候我使用了神经网络在进行训练，因为我相信，和简单的决策树比起来，神经网络能处理更复杂的情景。神经网络是一种靠多个神经元协作来完成的计算，你可以想象你有100个或一千个或十亿个开关来控制你的世界，有的开关控制你每天睡几个小时，有的开关控制你的财富，你一转这个开关你马上变成一个百万富翁，我真希望我能找到这个开关。而你的最终目的就是控制自己活到100岁，不能多也不能少，越接近100就证明你对开关的组合做的越好。这就是神经网络，我们的历史数据就是开关，股票的费率就是活到100岁这个目标。
+
+---
+
+但后来发现DF能达到更小的误差。决策树和神经网络不同，它简单的多。你可以想象一棵树的每个分支就是一个if else，if 当前的值大于一个数，那就向左，否则向右，就这样不断的if else，最后得出一个结果来。那对于决策树的不足也很明显，如果出现一个之前没存在过的数值，如果美联储加息到前所未有的值，它只能通向最边上的分支，解决的办法就是要重新训练决策树。
+
+----
+
+这里我使用决策树首先训练出一个方向模型，因为对于费率来说，是变大还是变小这是最重要的事，然后方向模型的输出作为下一个模型的数据，训练另外一个费率模型。
+
+这里是模型产生的report，一个是shadow mode report，就是人每改变一条，模型紧接着做一个预测进行对比，来验证模型的准确率，可以看到模型的误差是非常小的。另一个是AI assistance，就是每天帮助用户生成关注的费率，来帮助用户及时发现需要修改的费率。
+
+---
+
+看一下模型的表现。
+
+---
+
+这里是我们使用的数据源，有来自xx的和xx的，这里每一个特征，desk user都review过，有一些她认为比较重要，有一些她认为和其他特征是线性相关的。
+
+---
+
+并且这里提醒大家，虽然我们会写代码，我们理论上可以知道一个application的逻辑，但关于业务的知识最好还是和business多交流，因为有些事情只有他们知道。我在自己训练模型的时候我认为已经达到了一个瓶颈，但是经过一段时间，每天晚上和desk user交流，我被告知对于penny stock，一种价格低于1美元的stock，他们会有一个特殊的操作来计算费率。如果我直接把它们和其他stock的历史数据一块训练，那就导致数据的不一致，最终影响模型的性能。
+
+---
+
+这是特征的重要性排序，基本和desk user的预期是一样的。
+
+---
+
+今天的展示可能对于不做SBL rate的同事来说不是那么有帮助，但是我想提供给大家一种思路，就像andrew说的，当前是大模型的时代，但是当前也不只有大模型，有些小的或者像这样的专家系统可能对我们帮助更大，而cost更低，如果大家在自己的工作中遇到类似的问题，可以考虑使用机器学习来构建一个自己的模型。
+
+谢谢大家。现在大家有什么问题可以提问。
+
+---
+
+---
+
+Rate Prediction Presentation
+
+Hi everyone, I'm Yuqi, from the SBL Rate Team. Last time, I shared with you the video search tool Moogle, which is mainly based on vector search and large language model. After last session, there're many questions about vector database, so please allow me take a few minutes to answer that first.
+
+Firstly, the difference between vector databases and traditional databases is that it stores vectors instead of constants. And it needs an embedding model which is a pre-trained model based on existing materials, to convert text into vectors. The ultimate goal of converting to vectors is that we can use vectors instead of text to calculate similarity. This way, we can know how similar our questions are to existing texts. This is an enhancement of keyword search and can be understood as semantic search.
+
+There are several ways to calculate vector similarity, such as dot product and cosine.
+
+The vector database I use is Faiss, which is easy to get started with and can be quickly used by installing a Python package, but it does not support scalar queries. I'm considering using ChromaDB, which is a vector database that supports scalar queries. In addition, citi also provides Milvus, which is more powerful but needs to be set up by yourself.
+
+Due to time limitation, if you have any other questions, you can revisit the previous video or feel free to contact me directly.
+
+---
+
+Back to today's topic, which is also related to machine learning, but this time it's combined with our SBL business, mainly completed by a senior desk user and me. I will first introduce the background of SBL, and I also hope that today's presentation will provide everyone with a way of thinking, which can apply machine learning to other business areas.
+
+**Question:** First, I would like to ask if anyone has ever short stocks? Nobody? Yes, shorting is a high-risk operation. Today's business is related to it.
+
+Citi is a stock broker that borrows stocks from somebody and then lends them to others. Of course, there are more details here, such as the prohibition of naked short after the financial crisis. If a client wants to short a stock, they must first borrow the stock, and Citi is one of the places that can provide stock lending.
+
+Citi makes money by charging a fee, which is the lending fee here. And as we all know, the price is determined by the supply and demand, whether it is the price of physical goods or the price of stock lending. So, different stocks, the number of people who want to short them varies, so the lending price will be different. Of course, the more people who want to borrow, the higher the price, and vice versa. This is also why sometimes SBL's desk users call the rate as "price."
+
+---
+
+Because of this, because different stocks have different lending fees, desk users need to change the lending rates according to the daily market changes. Because if the price is too low and the actual popularity of the stock is very high, then Citi is actually making less money, and if the price is too high and the stock is not that popular, that is, not many people want to borrow, it will lead to no one coming to Citi to borrow, which will also lead to a decrease in Citi's profit.
+
+---
+
+**How many times does the desk user need to change the stock fee every day?**
+
+Citi roughly divides SBL rates into three categories, and now an additional category SR has been added. AO, that is, account level, such as BlackRock, no matter which stock the client borrows, we use the same rate between us, of course, the rate between citi and the client will also be adjusted. Then there is CO, that is, security level, which is also the dataset we used for training, and finally, the GC rate. According to historical data, we have about 400 AO rates, and the desk user needs to change about 30 every day. For CO, there are about 6,000 rates, and the desk user needs to change an average of 250 every day, and for some special periods, such as when the US raised interest rates the first time, the desk user changed the rate more than 400 in two consecutive days.
+
+**How many desk users are there who change the rate? **
+
+You can guess, 10, 20? In fact, there are only 5 or 6 people, query the database records, each person needs to change a record every 5 minutes, constantly changing from morning to night.
+
+And even so, it is still not certain that they cover all the stocks, because there are too many stocks, and changes are happening every day.
+
+---
+
+**What are the impacts if the stock rate cannot be changed in time?**
+
+From Citi's perspective, for example, look at this chart, I queried the top 30 client's lending amount value, the average value is 4.8 million US dollars, let's assume we increase the rate by 2%, then each stock, every day, is 266 US dollars, and think about that we have 6,000 stocks, the amount will be very big.
+
+From the client's perspective, if Citi can lower the rate before other brokers when the stock popularity decreases, then the rate given by Citi will be more competitive, even if it is half a day earlier, the client will feel that our information channel is faster and more trustworthy.
+
+---
+
+**How do we use historical data to help us?**
+
+At the beginning, I used neural networks for training because I believe that compared to simple decision trees, neural networks can handle more complex situations. Neural networks are calculations completed by the collaboration of multiple neurons. You can imagine that you have 10 or a thousand or a billion switches to control your world, your real world, some switches control how many hours you sleep every day, some switches control your wealth, you can adjust this switch and you immediately become a millionaire, I really hope I can find this switch. And your ultimate goal is to control yourself to live to 100 years old, not more and not less, the closer to 100, the better you do with the combination of the all switches. This is the neural network, our historical data are the switches, and the stock rate is the goal of living to 100 years old.
+
+---
+
+But later I found that decision trees can achieve smaller errors. Decision trees are different from neural networks, they are much simpler. You can imagine that each branch of a tree is an if-else, if the current value is greater than a number, then go to left, otherwise go to right, and so on, and finally come to a result. The disadvantage of decision trees are also obvious, if there is a value that has not existed before, such as the US raises interest rate to a new high value, it can only go to the edge of the branch, the solution is to retrain the decision tree.
+
+---
+
+Here I use the decision tree to first train a direction model, because for the rate, whether it is getting bigger or smaller is the most important thing, and then the output of the direction model is used as the data for the next model to train another rate model.
+
+Here is the report generated by the model, one is the shadow mode report, which is that every time a person changes one, the model immediately makes a prediction for comparison to verify the accuracy of the model, and it can be seen that the model's error is very small. The other is AI assistance, which is to help users generate the rate of concern every day, to help users find the rate that needs to be modified in time.
+
+---
+
+Let's take a look at the performance of the model.
+
+---
+
+Here are the data sources we use, some from xx and some from xx, here every feature, the desk user has reviewed, some she thinks are important, some she thinks should be linearly related to other features, so removed.
+
+---
+
+And here to remind everyone, although we can write code, we can theoretically know the logic of an application, but the knowledge about the business is best to communicate with the business person, because there are some things only they know. When I was training the model myself, I thought I had reached a bottleneck, but after a period of time, communicating with the desk user every night, I was told that for penny stocks, which is a kind of stock with a price lower than 1 dollar, they have a special operation to calculate the rate. If I trained them directly with the historical data of other stocks, it would lead to data inconsistency and ultimately affect the performance of the model.
+
+---
+
+This is the importance of the feature ranking, which is basically the same as the desk user's expectation.
+
+---
+
+Today's presentation may not be so helpful for colleagues who do not work on SBL rate business, but I want to provide everyone with a way of thinking, just like Andrew said, now is the era of LLM, but there's only onlyLLM, some small or such expert system may help us more, and the cost is lower. If everyone encounters similar question in their work, they can consider using machine learning to build their own model.
+
+Thank you, everyone. Now if you have any questions, you can ask.
+
+---
